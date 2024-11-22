@@ -64,6 +64,9 @@ public class Algebra {
 	public static int div(int x1, int x2) {
 		int div = x1;
 		int count =0;
+		if ( x2 == 0) {
+			return -1;
+		}
 		while (div >= x2) {
 			 div= minus(div, x2);
 			 count++;

@@ -48,16 +48,16 @@ public class LoanCalc {
 		double payment = loan/n;
 		iterationCounter = 0;
 	    double finalBalance = endBalance(loan,rate,n, payment);
-		while (Math.abs(finalBalance) > epsilon) {
-			iterationCounter++;
-
-			if ( finalBalance > 0 ){
-				payment += 0.0001;
+		while (finalBalance > 0) {
+			payment += epsilon;
+			/*if ( finalBalance > 0 ){
+				payment += epsilon;
 			}
 			else {
-				payment -= 0.0001;
-			}
+				payment -= epsilon;
+			} */
 			finalBalance = endBalance(loan, rate, n, payment);
+			iterationCounter++;
 			
 		}
 		return payment;

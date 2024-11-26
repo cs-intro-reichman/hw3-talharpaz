@@ -133,10 +133,7 @@ public class Algebra {
 				div = minus(div, x2);
 				count ++;
 			}
-			if (x1 < 0 && x2 <0) {
-				div = minus(div, x2);
-				count ++;
-			}else{
+			else{
 			 div= minus(div, x2);
 			 count++;
 			}

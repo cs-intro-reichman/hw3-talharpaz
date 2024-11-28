@@ -65,22 +65,28 @@ public class Algebra {
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
 		
-		int multi=0;
-		if ( x1 == 0 || x2 == 0) {
-			return 0;
-		}
-		if (x2 > 0) {
-		while ( x2 > 0 ){
-		multi += plus(multi, x1);
-		x2--;
-		}
-			
-		} else if (x2 < 0) {
-		return -times(x1, -x2);
-			
-		}
-		
-		return multi;
+		int multi = 0;
+
+    if (x1 == 0 || x2 == 0) {
+        return 0;
+    }
+
+    boolean x1IsNegative = (x1 < 0);
+    boolean x2IsNegative = (x2 < 0);  
+	boolean isNegative = x1IsNegative =! x2IsNegative;
+    
+    if (x1 < 0) {
+        x1 = -x1;  
+    }
+    if (x2 < 0) {
+        x2 = -x2;  
+    }
+
+    for (int i = 0; i < x2; i++) {
+        multi = plus(multi, x1);  
+    }
+
+    return isNegative ? -multi : multi;
 	}
 
 	// Returns x^n (for n >= 0)

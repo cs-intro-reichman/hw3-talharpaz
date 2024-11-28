@@ -72,7 +72,7 @@ public class Algebra {
     }
     boolean x1IsNegative = (x1 < 0);
     boolean x2IsNegative = (x2 < 0);  
-	boolean isNegative = (x1IsNegative =! x2IsNegative);
+	boolean isNegative = (x1IsNegative != x2IsNegative);
     
     if (x1 < 0) {
         x1 = -x1;  
@@ -90,23 +90,16 @@ public class Algebra {
 
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
-		int pow = x;
-		if ( n == 0 && x==0){
-			return -1;
+		int pow = 1;  
+		if (n == 0) {
+			return 1;  
 		}
-		if ( n == 1){
-			return pow;
+		for (int i = 1; i <= n; i++) {
+			pow = times(pow, x);
 		}
-		if ( n == 0){
-			return 1;
-		}
-		if ( x == 0){
-			return 0;
-		}
-		for ( int i = 1; i< n; i++){
-			pow = times(pow , x);
-		}
-		return pow;
+	
+		return (x < 0 && n % 2 != 0) ? -pow : pow;
+	
 	
 	}
 
@@ -117,27 +110,28 @@ public class Algebra {
 		if ( x1 == 0) return 0;
 		if ( x2 == 0) return -1;
 
-		while (div != 0) {
-			
-			if ((x1 > 0 && x2 <0)|| (x1 < 0 && x2 >0)) {
-				div = plus(div, x2);
-				count ++;
-			}
-			if (x1 < 0 && x2 <0) {
-				div = minus(div, x2);
-				count ++;
-			}
-			else{
-			 div= minus(div, x2);
-			 count++;
-			}
+		boolean isNegative;
+        if (x1 < 0 && x2 >= 0) isNegative = true;
+         else if (x1 >= 0 && x2 < 0) isNegative = true; 
+		   else isNegative = false; 
+
+		     if (x1 < 0) x1 = -x1; 
+		     if (x2 < 0) x2 = -x2;  
+	
+		
+		while (x1 >= x2) {
+			x1 = minus(x1, x2);  
+			count++;
 		}
-		return count;
+	
+		
+		return isNegative ? -count : count;
 	}
 
 	// Returns x1 % x2
 	public static int mod(int x1, int x2) {
 		int mod = x1;
+		if (x2 == 0) return -1;
 		while (mod >= x2) {
 			 mod= minus(mod, x2);
 			 
@@ -147,16 +141,13 @@ public class Algebra {
 
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
-		int i = 2;
-		while (i < x ) {
-			if (mod(x, i) == 0 && pow(i, 2) == x ) {
-				
-					break;
-					
-				}
-				i++;
-			}
-			return  (int)i;
+		if (x < 0) return -1;
+			
+		int i = 0;
+		while (times(i, i) <= x) { 
+			i++;
+		}
+		return minus(i, 1);
 	   
 		
 	}	  	  

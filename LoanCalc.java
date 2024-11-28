@@ -75,24 +75,16 @@ public class LoanCalc {
         
 		double L = loan/n;
 		double H = loan;
-		double balance;
-		double payment;
-        
-		while (Math.abs(H - L) > epsilon) {
+		double g = (L + H)/2;
+		
+		while ((H - L) > epsilon) {
+			if ( endBalance(loan, rate, n, g)* endBalance(loan, rate, n, L) > 0) L=g;
+			else H =g;
+			g= (L+H)/2;
 			iterationCounter++;
-
-			payment = (H + L)/2;
-			balance = endBalance(loan, rate, n, payment);
-
-			if ( balance > 0 ){
-				L = payment;
-			}
-			else {
-				H = payment;
-			}
 			
 		}
 
-		return (H + L)/2 ;
+		return g ;
     }
 }

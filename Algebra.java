@@ -70,10 +70,9 @@ public class Algebra {
     if (x1 == 0 || x2 == 0) {
         return 0;
     }
-
     boolean x1IsNegative = (x1 < 0);
     boolean x2IsNegative = (x2 < 0);  
-	boolean isNegative = x1IsNegative =! x2IsNegative;
+	boolean isNegative = (x1IsNegative =! x2IsNegative);
     
     if (x1 < 0) {
         x1 = -x1;  
